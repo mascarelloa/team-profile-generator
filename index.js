@@ -4,15 +4,19 @@ const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
+const chalk = require("chalk");
 const teamMembers = [];
 
+
+//This is the function that is called to start creating the team, starting with the manager.
 const createManager = () => {
-        
+    //These are the prompt questions for creating the manager.
     inquirer.prompt ([
             {
                 type: "input",
                 name: "name",
                 message: "What is the team manager's name?",
+                //This will return a message to enter a valid name if nothing is entered before continuing.
                 validate: data => {
                     if(data !== ""){
                         return true
@@ -24,6 +28,7 @@ const createManager = () => {
                 type: "input",
                 name: "id",
                 message: "What is the team manager's ID#?",  
+                //This will return a message to enter a valid ID if nothing is entered before continuing.
                 validate: data => {
                     if(data !== ""){
                         return true
@@ -35,6 +40,7 @@ const createManager = () => {
                 type: "input",
                 name: "email",
                 message: "What is the team manager's email?",
+                //This will return a message to enter a valid email if an invalid format is entered before continuing.
                 validate: data => {
                     if(data.match(/\S+@\S+\.\S+/)) {
                         return true
@@ -46,6 +52,7 @@ const createManager = () => {
                 type: "input",
                 name: "officeNumber",
                 message: "What is the team manager's office number?", 
+                //This will return a message to enter a valid office number if nothing is entered before continuing.
                 validate: data => {
                     if(data !== ""){
                         return true
@@ -53,6 +60,7 @@ const createManager = () => {
                     return "Please enter a valid office number."
                 }
             },
+            //This ends the manager questions and asks user to create another team member or complete the team.
             {
                 type: "list",
                 name: "newMember",
@@ -61,16 +69,14 @@ const createManager = () => {
             },
             
 
-
-        ])
-        
-        .then((answers) => {
+        //This creates the new manager object with all the data from the questions.
+        ]).then((answers) => {
             const manager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber)
-
+            //This pushes the object into the empty array that will hold the team members. 
             teamMembers.push(manager)
             let addMember = answers.newMember !== "The team is complete!"
             let memberType = answers.newMember;
-
+            //If team is not complete, this will prompt the function for whatever team member type the user selects 
             while (addMember) {
                 if (memberType === "Manager") {
                     createManager();
@@ -79,18 +85,17 @@ const createManager = () => {
                 } else if (memberType === "Intern") {
                     createIntern();
                 }
+                //This ends the while loop.
                 return;
                 }
+                //This logs the data collected. 
                 console.log(teamMembers)
             })
 
  }
-    
 
-
-
- const createEngineer = () => {
-        
+//This creates an engineer.
+const createEngineer = () => {     
     inquirer.prompt ([
             {
                 type: "input",
@@ -170,7 +175,7 @@ const createManager = () => {
     
  }
  
-
+//This creates an intern.
  const createIntern = () => {
         
     inquirer.prompt ([
@@ -251,5 +256,36 @@ const createManager = () => {
         })
     
  }
-
+ //This calls the first main function to start the program. 
  createManager();
+
+
+
+
+ 
+// const generateHTML = (answers) =>
+//   `<!DOCTYPE html>
+// <html lang="en">
+// <head>
+//   <meta charset="UTF-8">
+//   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+//   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+//   <title>My Time</title>
+// </head>
+// <body>
+//     <header>
+//         <div class="jumbotron jumbotron-fluid custom-jumbotron">
+//             <div class="container">
+//                 <h1 class="display-4">My Team</h1>
+//             </div>
+//         </div>
+//     </header>
+
+//     <main>
+
+//     </main>
+// </body>
+// </html>`;
+
+// fs.writeFile('index.html', htmlPageContent, (err) =>
+// err ? console.log(err) : console.log('Successfully created index.html!')
