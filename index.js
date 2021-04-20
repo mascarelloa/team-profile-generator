@@ -4,8 +4,8 @@ const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
-const chalk = require("chalk");
 const teamMembers = [];
+const generateHTML = require("./generatehtml");
 
 
 //This is the function that is called to start creating the team, starting with the manager.
@@ -76,6 +76,12 @@ const createManager = () => {
             teamMembers.push(manager)
             let addMember = answers.newMember !== "The team is complete!"
             let memberType = answers.newMember;
+
+            if (!addMember) {
+                createFile();
+                return;
+            }
+
             //If team is not complete, this will prompt the function for whatever team member type the user selects 
             while (addMember) {
                 if (memberType === "Manager") {
@@ -159,6 +165,11 @@ const createEngineer = () => {
             let addMember = answers.newMember !== "The team is complete!"
             let memberType = answers.newMember;
 
+            if (!addMember) {
+                createFile();
+                return;
+            }
+
             while (addMember) {
                 if (memberType === "Manager") {
                     createManager();
@@ -241,6 +252,11 @@ const createEngineer = () => {
             let addMember = answers.newMember !== "The team is complete!"
             let memberType = answers.newMember;
 
+            if (!addMember) {
+                createFile();
+                return;
+            }
+
             while (addMember) {
                 if (memberType === "Manager") {
                     createManager();
@@ -254,6 +270,8 @@ const createEngineer = () => {
                 console.log(teamMembers);
 
         })
+
+
     
  }
  //This calls the first main function to start the program. 
@@ -262,30 +280,8 @@ const createEngineer = () => {
 
 
 
- 
-// const generateHTML = (answers) =>
-//   `<!DOCTYPE html>
-// <html lang="en">
-// <head>
-//   <meta charset="UTF-8">
-//   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-//   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-//   <title>My Time</title>
-// </head>
-// <body>
-//     <header>
-//         <div class="jumbotron jumbotron-fluid custom-jumbotron">
-//             <div class="container">
-//                 <h1 class="display-4">My Team</h1>
-//             </div>
-//         </div>
-//     </header>
+const createFile = () => {
 
-//     <main>
-
-//     </main>
-// </body>
-// </html>`;
-
-// fs.writeFile('index.html', htmlPageContent, (err) =>
-// err ? console.log(err) : console.log('Successfully created index.html!')
+fs.writeFile('index.html', generateHTML(teamMembers), (err) =>
+err ? console.log(err) : console.log('Successfully created index.html!'))
+}
