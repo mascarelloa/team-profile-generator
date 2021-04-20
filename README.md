@@ -18,7 +18,7 @@
   * [Questions](#Questions)
 
   ## Visual
-  ![Visual](./assets/visual1)
+ ![Visual1](https://user-images.githubusercontent.com/75543740/115462498-b7a5f480-a1f8-11eb-958c-03faffe4297e.PNG)
 
   ## Installation
   npm i
