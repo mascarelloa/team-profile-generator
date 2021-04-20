@@ -13,8 +13,7 @@ let html = `<!DOCTYPE html>
     <header>
     <div class="jumbotron jumbotron-fluid custom-jumbotron">
         <div class="container">
-        <br><br>
-            <h1 class="display-4">Meet the Team/h1>
+            <h1 class="display-4">Meet the Team</h1>
         </div>
     </div>
     </header>

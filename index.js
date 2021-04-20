@@ -5,7 +5,7 @@ const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
 const teamMembers = [];
-const generateHTML = require("./generatehtml");
+const generateHTML = require("./src/generatehtml");
 
 
 //This is the function that is called to start creating the team, starting with the manager.
@@ -144,7 +144,7 @@ const createEngineer = () => {
                     if(data !== ""){
                         return true
                     } 
-                    return "Please enter a valid ID#."
+                    return "Please enter a valid username."
                 }
             },
             {
@@ -231,7 +231,7 @@ const createEngineer = () => {
                     if(data !== ""){
                         return true
                     } 
-                    return "Please enter a valid ID#."
+                    return "Please enter a valid school."
                 }
             },
             {
@@ -279,9 +279,9 @@ const createEngineer = () => {
 
 
 
-
+// This is the function that creates the file. 
 const createFile = () => {
-
+console.log(teamMembers)
 fs.writeFile('index.html', generateHTML(teamMembers), (err) =>
 err ? console.log(err) : console.log('Successfully created index.html!'))
 }
